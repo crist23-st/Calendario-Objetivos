@@ -783,42 +783,67 @@ let currentDate = new Date();
 let selectedDay = null;
 let editingObjectiveId = null;
 
-let objectives = [
-    {
-        id: 1,
-        title: "Aumentar Ingresos",
-        description: "Meta de crecimiento mensual",
-        target: 100,
-        current: 90,
-        status: "progress"
-    },
-    {
-        id: 2,
-        title: "Clientes Nuevos",
-        description: "Adquirir 50 clientes nuevos",
-        target: 100,
-        current: 65,
-        status: "progress"
-    },
-    {
-        id: 3,
-        title: "Satisfacción Cliente",
-        description: "Mantener calificación 4.5+",
-        target: 100,
-        current: 100,
-        status: "completed"
-    },
-    {
-        id: 4,
-        title: "Capacitación Personal",
-        description: "Entrenar al equipo completo",
-        target: 100,
-        current: 20,
-        status: "delayed"
+// Cargar datos desde localStorage
+function loadData() {
+    const savedObjectives = localStorage.getItem('calendarObjectives');
+    const savedDayData = localStorage.getItem('calendarDayData');
+    
+    if (savedObjectives) {
+        return {
+            objectives: JSON.parse(savedObjectives),
+            dayData: savedDayData ? JSON.parse(savedDayData) : {}
+        };
     }
-];
+    
+    // Datos de ejemplo solo si es la primera vez
+    return {
+        objectives: [
+            {
+                id: 1,
+                title: "Aumentar Ingresos",
+                description: "Meta de crecimiento mensual",
+                target: 100,
+                current: 90,
+                status: "progress"
+            },
+            {
+                id: 2,
+                title: "Clientes Nuevos",
+                description: "Adquirir 50 clientes nuevos",
+                target: 100,
+                current: 65,
+                status: "progress"
+            },
+            {
+                id: 3,
+                title: "Satisfacción Cliente",
+                description: "Mantener calificación 4.5+",
+                target: 100,
+                current: 100,
+                status: "completed"
+            },
+            {
+                id: 4,
+                title: "Capacitación Personal",
+                description: "Entrenar al equipo completo",
+                target: 100,
+                current: 20,
+                status: "delayed"
+            }
+        ],
+        dayData: {}
+    };
+}
 
-let dayData = {};
+// Guardar datos en localStorage
+function saveData() {
+    localStorage.setItem('calendarObjectives', JSON.stringify(objectives));
+    localStorage.setItem('calendarDayData', JSON.stringify(dayData));
+}
+
+const initialData = loadData();
+let objectives = initialData.objectives;
+let dayData = initialData.dayData;
 
 function initCalendar() {
     renderCalendar();
@@ -937,6 +962,7 @@ function addTask() {
     });
     
     input.value = '';
+    saveData();
     renderTasks();
     updateStats();
 }
@@ -947,6 +973,7 @@ function toggleTask(taskId) {
     
     if (task) {
         task.completed = !task.completed;
+        saveData();
         renderTasks();
         updateStats();
     }
@@ -1077,6 +1104,7 @@ function saveObjective() {
         });
     }
     
+    saveData();
     closeObjectiveModal();
     renderObjectives();
     updateStats();
@@ -1085,6 +1113,7 @@ function saveObjective() {
 function deleteObjective(id) {
     if (confirm('¿Estás seguro de eliminar este objetivo?')) {
         objectives = objectives.filter(o => o.id !== id);
+        saveData();
         renderObjectives();
         updateStats();
     }
