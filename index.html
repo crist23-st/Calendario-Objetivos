@@ -302,6 +302,118 @@
             box-shadow: 0 4px 12px rgba(50, 184, 198, 0.4);
         }
 
+        .view-selector {
+            display: flex;
+            background: #1a1a1a;
+            border: 2px solid #404040;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .view-btn {
+            flex: 1;
+            padding: 12px 16px;
+            background: transparent;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .view-btn.active {
+            background: linear-gradient(135deg, #32b8c6 0%, #2da5b1 100%);
+            color: white;
+        }
+
+        .week-view {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .week-view.active {
+            display: block;
+        }
+
+        .week-header {
+            display: grid;
+            grid-template-columns: 60px repeat(7, 1fr);
+            gap: 2px;
+            margin-bottom: 10px;
+        }
+
+        .week-time-slot {
+            font-size: 11px;
+            color: #999;
+            text-align: center;
+            padding: 5px;
+        }
+
+        .week-day-header {
+            text-align: center;
+            padding: 10px 5px;
+            background: #1a1a1a;
+            border: 1px solid #404040;
+            border-radius: 8px;
+            color: #32b8c6;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .week-grid {
+            display: grid;
+            grid-template-columns: 60px repeat(7, 1fr);
+            gap: 2px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .week-hour {
+            font-size: 11px;
+            color: #666;
+            text-align: center;
+            padding: 10px 5px;
+            border-right: 1px solid #333;
+        }
+
+        .week-day-column {
+            background: #2a2a2a;
+            border: 1px solid #404040;
+            min-height: 40px;
+            padding: 5px;
+            position: relative;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .week-day-column:hover {
+            background: #353535;
+            border-color: #32b8c6;
+        }
+
+        .week-task {
+            background: linear-gradient(135deg, #32b8c6 0%, #2da5b1 100%);
+            color: white;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 11px;
+            margin-bottom: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .week-task:hover {
+            transform: scale(1.02);
+        }
+
+        .week-task.completed {
+            opacity: 0.6;
+            text-decoration: line-through;
+        }
+
         .objective-item {
             background: linear-gradient(135deg, #1a1a1a 0%, #151515 100%);
             border: 1px solid #404040;
@@ -632,38 +744,297 @@
         }
 
         @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
             .main-content {
                 grid-template-columns: 1fr;
             }
             
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
             }
 
-            .calendar-day {
-                font-size: 14px;
+            .stat-card {
+                padding: 16px;
             }
 
-            .day-number {
-                font-size: 16px;
+            .stat-value {
+                font-size: 28px;
             }
-        }
 
-        @media (max-width: 480px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
+            .header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 15px;
             }
 
             .header h1 {
                 font-size: 22px;
+                text-align: center;
+            }
+
+            .month-nav {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .month-nav > div {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .month-nav span {
+                min-width: auto;
+                font-size: 18px;
+            }
+
+            .month-nav button,
+            .settings-btn {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+
+            .calendar-section,
+            .objectives-section {
+                padding: 16px;
             }
 
             .calendar {
-                gap: 6px;
+                gap: 4px;
             }
 
             .calendar-day {
-                min-height: 50px;
+                font-size: 13px;
+                min-height: 45px;
+            }
+
+            .day-number {
+                font-size: 15px;
+            }
+
+            .day-indicator {
+                width: 6px;
+                height: 6px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: stretch;
+            }
+
+            .section-header h2 {
+                font-size: 18px;
+            }
+
+            .btn-add {
+                width: 100%;
+                padding: 12px;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 20px;
+                max-height: 90vh;
+            }
+
+            .form-group input,
+            .form-group textarea,
+            .form-group select {
+                font-size: 16px;
+                padding: 12px;
+            }
+
+            .btn-primary {
+                padding: 14px;
+                font-size: 16px;
+            }
+
+            .task-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .task-item input[type="checkbox"] {
+                align-self: flex-start;
+            }
+
+            .delete-btn {
+                align-self: flex-end;
+                width: 100%;
+            }
+
+            .objective-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .objective-actions {
+                align-self: flex-end;
+            }
+
+                max-width: 100%;
+                height: auto;
+            }
+
+            .chart-container {
+                padding: 20px 10px;
+            }
+        }            @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-card {
+                padding: 14px;
+            }
+
+            .stat-value {
+                font-size: 24px;
+            }
+
+            .header h1 {
+                font-size: 20px;
+            }
+
+            .month-nav button,
+            .settings-btn {
+                padding: 8px 14px;
+                font-size: 13px;
+            }
+
+            .calendar {
+                gap: 3px;
+            }
+
+            .calendar-day {
+                min-height: 40px;
+                font-size: 12px;
+            }
+
+            .day-number {
+                font-size: 14px;
+            }
+
+            .calendar-header {
+                font-size: 11px;
+                padding: 8px 4px;
+            }
+
+            .modal-content {
+                padding: 16px;
+                width: 96%;
+            }
+
+            .modal-header h3 {
+                font-size: 18px;
+            }
+
+            .form-group label {
+                font-size: 13px;
+            }
+
+            .form-group input,
+            .form-group textarea,
+            .form-group select {
+                padding: 10px;
+                font-size: 16px;
+            }
+
+            .task-text {
+                font-size: 14px;
+            }
+
+            .objective-title {
+                font-size: 15px;
+            }
+
+            .chart-container {
+                padding: 15px 5px;
+            }
+
+                max-width: 100%;
+                height: auto;
+            }
+        }
+
+        @media (max-width: 360px) {
+            body {
+                padding: 8px;
+            }
+
+            .calendar {
+                gap: 2px;
+            }
+
+            .calendar-day {
+                min-height: 35px;
+            }
+
+            .day-number {
+                font-size: 13px;
+            }
+
+            .stat-card-header span {
+                font-size: 12px;
+            }
+
+            .stat-value {
+                font-size: 22px;
+            }
+
+            .month-nav button,
+            .settings-btn {
+                padding: 7px 12px;
+                font-size: 12px;
+            }
+
+            .btn-add {
+                padding: 10px;
+                font-size: 13px;
+            }
+
+            .settings-menu {
+                min-width: 180px;
+            }
+
+            .settings-menu-item {
+                padding: 10px 12px;
+                font-size: 13px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr 350px;
+                gap: 20px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .calendar {
+                gap: 8px;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .container {
+                max-width: 1400px;
+            }
+
+            .main-content {
+                grid-template-columns: 1fr 380px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
             }
         }
     </style>
@@ -683,7 +1054,13 @@
                             ✏️ Renombrar calendario
                         </div>
                         <div class="settings-menu-item" onclick="openDownloadModal()">
-                            📥 Descargar datos
+                            📥 Descargar PDF
+                        </div>
+                        <div class="settings-menu-item" onclick="exportData()">
+                            💾 Exportar datos
+                        </div>
+                        <div class="settings-menu-item" onclick="openImportModal()">
+                            📂 Importar datos
                         </div>
                     </div>
                 </div>
@@ -726,25 +1103,46 @@
 
         <div class="main-content">
             <div class="calendar-section">
-                <div class="calendar">
-                    <div class="calendar-header">Dom</div>
-                    <div class="calendar-header">Lun</div>
-                    <div class="calendar-header">Mar</div>
-                    <div class="calendar-header">Mié</div>
-                    <div class="calendar-header">Jue</div>
-                    <div class="calendar-header">Vie</div>
-                    <div class="calendar-header">Sáb</div>
+                <div class="view-selector">
+                    <button class="view-btn active" onclick="switchView('month')">📅 Mes</button>
+                    <button class="view-btn" onclick="switchView('week')">📊 Semana</button>
                 </div>
-                <div class="calendar" id="calendarGrid"></div>
+
+                <div id="monthView">
+                    <div class="calendar">
+                        <div class="calendar-header">Dom</div>
+                        <div class="calendar-header">Lun</div>
+                        <div class="calendar-header">Mar</div>
+                        <div class="calendar-header">Mié</div>
+                        <div class="calendar-header">Jue</div>
+                        <div class="calendar-header">Vie</div>
+                        <div class="calendar-header">Sáb</div>
+                    </div>
+                    <div class="calendar" id="calendarGrid"></div>
+                </div>
+                
+                <div class="week-view" id="weekView">
+                    <div class="week-nav" style="display: flex; justify-content: center; align-items: center; gap: 20px; margin-bottom: 15px;">
+                        <button onclick="changeWeek(-1)" style="background: #32b8c6; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 500;">← Semana Anterior</button>
+                        <span id="currentWeekRange" style="font-size: 16px; font-weight: 600; color: #32b8c6; min-width: 200px; text-align: center;"></span>
+                        <button onclick="changeWeek(1)" style="background: #32b8c6; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 500;">Siguiente Semana →</button>
+                    </div>
+                    <div class="week-header" id="weekHeader"></div>
+                    <div class="week-grid" id="weekGrid"></div>
+                </div>
                 
                 <div class="objectives-section" style="margin-top: 20px;">
                     <div class="section-header">
                         <h2 id="dayViewTitle">Tareas del Día</h2>
-                        <button class="btn-add" onclick="openDayModal(selectedDay || new Date().getDate())">+ Agregar Tarea</button>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn-add" onclick="openDayModal(selectedDay || new Date().getDate())">+ Agregar Tarea</button>
+                            <button class="btn-add" onclick="openNoteModal()" style="background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);">📝 Agregar Nota</button>
+                        </div>
                     </div>
                     <div id="dayViewTaskList" style="max-height: 300px; overflow-y: auto;">
                         <p style="text-align: center; color: #999; padding: 20px;">Selecciona un día del calendario</p>
                     </div>
+                    <div id="dayViewNotesList" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #404040;"></div>
                 </div>
             </div>
 
@@ -821,7 +1219,7 @@
     <div class="modal" id="downloadModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Descargar Datos</h3>
+                <h3>Descargar PDF</h3>
                 <button class="btn-close" onclick="closeDownloadModal()">×</button>
             </div>
             <div class="form-group">
@@ -831,6 +1229,26 @@
                 </select>
             </div>
             <button class="btn-primary" onclick="executeDownload()">Descargar PDF</button>
+        </div>
+    </div>
+
+    <!-- Modal para importar datos -->
+    <div class="modal" id="importModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Importar Datos</h3>
+                <button class="btn-close" onclick="closeImportModal()">×</button>
+            </div>
+            <div class="form-group">
+                <label>Selecciona el archivo JSON</label>
+                <input type="file" id="importFileInput" accept=".json" style="color: #e0e0e0;">
+            </div>
+            <div class="form-group">
+                <label style="color: #999; font-weight: normal; font-size: 12px;">
+                    ⚠️ Advertencia: Importar datos sobrescribirá todos los datos actuales del calendario.
+                </label>
+            </div>
+            <button class="btn-primary" onclick="executeImport()">Importar Datos</button>
         </div>
     </div>
 
@@ -867,8 +1285,72 @@
                 <label>Peso de la tarea (%)</label>
                 <input type="number" id="taskWeight" min="1" max="100" value="10">
             </div>
+            <div class="form-group">
+                <label>Repetir tarea</label>
+                <select id="taskRecurrence">
+                    <option value="">No repetir</option>
+                    <option value="daily">Diariamente</option>
+                    <option value="weekly">Semanalmente</option>
+                    <option value="monthly">Mensualmente</option>
+                    <option value="workdays">Solo días laborales</option>
+                    <option value="weekends">Solo fines de semana</option>
+                    <option value="custom">Días específicos</option>
+                </select>
+            </div>
+            <div class="form-group" id="customDaysGroup" style="display: none;">
+                <label>Días de la semana</label>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 5px;">
+                    <label style="display: flex; align-items: center; gap: 5px; font-weight: normal; font-size: 13px;">
+                        <input type="checkbox" id="dayMon" value="1"> Lun
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 5px; font-weight: normal; font-size: 13px;">
+                        <input type="checkbox" id="dayTue" value="2"> Mar
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 5px; font-weight: normal; font-size: 13px;">
+                        <input type="checkbox" id="dayWed" value="3"> Mié
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 5px; font-weight: normal; font-size: 13px;">
+                        <input type="checkbox" id="dayThu" value="4"> Jue
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 5px; font-weight: normal; font-size: 13px;">
+                        <input type="checkbox" id="dayFri" value="5"> Vie
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 5px; font-weight: normal; font-size: 13px;">
+                        <input type="checkbox" id="daySat" value="6"> Sáb
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 5px; font-weight: normal; font-size: 13px;">
+                        <input type="checkbox" id="daySun" value="0"> Dom
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Color personalizado del objetivo</label>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <input type="color" id="objectiveColor" value="#32b8c6" style="width: 50px; height: 40px; border: none; border-radius: 8px; cursor: pointer;">
+                    <span style="font-size: 12px; color: #999;">Solo afecta al objetivo vinculado</span>
+                </div>
+            </div>
             <button class="btn-primary" onclick="addTask()">Agregar Tarea</button>
             <div class="task-list" id="taskList"></div>
+        </div>
+    </div>
+
+    <!-- Modal para notas del día -->
+    <div class="modal" id="noteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="noteModalTitle">Agregar Nota</h3>
+                <button class="btn-close" onclick="closeNoteModal()">×</button>
+            </div>
+            <div class="form-group">
+                <label>Título de la nota</label>
+                <input type="text" id="noteTitle" placeholder="Título de la nota...">
+            </div>
+            <div class="form-group">
+                <label>Contenido</label>
+                <textarea id="noteContent" placeholder="Escribe tu nota aquí..." style="min-height: 120px;"></textarea>
+            </div>
+            <button class="btn-primary" onclick="saveNote()">Guardar Nota</button>
         </div>
     </div>
 
@@ -877,6 +1359,7 @@
         let selectedDay = null;
         let objectives = [];
         let dayData = {};
+        let dayNotes = {};
         let monthlyData = {};
         let calendarName = 'Calendario de Objetivos';
 
@@ -901,9 +1384,11 @@
             if (monthlyData[monthKey]) {
                 objectives = monthlyData[monthKey].objectives || [];
                 dayData = monthlyData[monthKey].dayData || {};
+                dayNotes = monthlyData[monthKey].dayNotes || {};
             } else {
                 objectives = [];
                 dayData = {};
+                dayNotes = {};
             }
         }
 
@@ -911,7 +1396,8 @@
             const monthKey = getMonthKey();
             monthlyData[monthKey] = {
                 objectives: objectives,
-                dayData: dayData
+                dayData: dayData,
+                dayNotes: dayNotes
             };
             localStorage.setItem('monthlyData', JSON.stringify(monthlyData));
         }
@@ -1041,6 +1527,8 @@
             const taskWeight = parseInt(document.getElementById('taskWeight').value) || 10;
             const startDateStr = document.getElementById('taskStartDate').value;
             const endDateStr = document.getElementById('taskEndDate').value;
+            const recurrenceType = document.getElementById('taskRecurrence').value;
+            const objectiveColor = document.getElementById('objectiveColor').value;
 
             if (!startDateStr || !endDateStr) {
                 alert('Por favor selecciona las fechas');
@@ -1055,48 +1543,64 @@
                 return;
             }
 
+            // Actualizar color del objetivo si está vinculado
+            if (linkedObjId && objectiveColor !== '#32b8c6') {
+                const objective = objectives.find(o => o.id == linkedObjId);
+                if (objective) {
+                    objective.color = objectiveColor;
+                }
+            }
+
             const baseId = Date.now();
             let daysAffected = 0;
 
-            const currentLoop = new Date(startDate);
-            while (currentLoop <= endDate) {
-                const year = currentLoop.getFullYear();
-                const month = currentLoop.getMonth();
-                const day = currentLoop.getDate();
-                const dateKey = `${year}-${month}-${day}`;
+            if (recurrenceType) {
+                createRecurringTasks(taskText, taskTime, linkedObjId, taskWeight, startDate, endDate, recurrenceType, baseId);
+            } else {
+                const currentLoop = new Date(startDate);
+                while (currentLoop <= endDate) {
+                    const year = currentLoop.getFullYear();
+                    const month = currentLoop.getMonth();
+                    const day = currentLoop.getDate();
+                    const dateKey = `${year}-${month}-${day}`;
 
-                if (!dayData[dateKey]) {
-                    dayData[dateKey] = [];
+                    if (!dayData[dateKey]) {
+                        dayData[dateKey] = [];
+                    }
+
+                    const task = {
+                        id: baseId + daysAffected,
+                        baseId: baseId,
+                        text: taskText,
+                        time: taskTime,
+                        linkedObjectiveId: linkedObjId ? parseInt(linkedObjId) : null,
+                        weight: taskWeight,
+                        completed: false,
+                        isIndependent: true,
+                        recurrence: null
+                    };
+
+                    dayData[dateKey].push(task);
+                    daysAffected++;
+
+                    currentLoop.setDate(currentLoop.getDate() + 1);
                 }
 
-                const task = {
-                    id: baseId + daysAffected,
-                    baseId: baseId,
-                    text: taskText,
-                    time: taskTime,
-                    linkedObjectiveId: linkedObjId ? parseInt(linkedObjId) : null,
-                    weight: taskWeight,
-                    completed: false,
-                    isIndependent: true
-                };
-
-                dayData[dateKey].push(task);
-                daysAffected++;
-
-                currentLoop.setDate(currentLoop.getDate() + 1);
-            }
-
-            if (daysAffected > 1) {
-                alert(`Tarea agregada a ${daysAffected} días`);
+                if (daysAffected > 1) {
+                    alert(`Tarea agregada a ${daysAffected} días`);
+                }
             }
 
             document.getElementById('newTask').value = '';
             document.getElementById('taskTime').value = '';
             document.getElementById('taskWeight').value = '10';
+            document.getElementById('taskRecurrence').value = '';
+            document.getElementById('objectiveColor').value = '#32b8c6';
 
             saveData();
             renderTasks();
             renderCalendar();
+            renderWeekView();
         }
 
         function renderTasks() {
@@ -1446,6 +1950,7 @@
             monthlyData = {};
             objectives = [];
             dayData = {};
+            dayNotes = {};
             localStorage.removeItem('monthlyData');
 
             renderCalendar();
@@ -1453,6 +1958,93 @@
             updateStats();
             drawProgressChart();
             renderCompletedTasks();
+        }
+
+        function openNoteModal() {
+            if (!selectedDay) {
+                alert('Por favor selecciona un día del calendario');
+                return;
+            }
+            
+            document.getElementById('noteModalTitle').textContent = `Nota - ${selectedDay} de ${getMonthName()}`;
+            document.getElementById('noteTitle').value = '';
+            document.getElementById('noteContent').value = '';
+            delete document.getElementById('noteModal').dataset.editingNoteId;
+            document.getElementById('noteModal').classList.add('active');
+        }
+
+        function closeNoteModal() {
+            document.getElementById('noteModal').classList.remove('active');
+            delete document.getElementById('noteModal').dataset.editingNoteId;
+        }
+
+        function saveNote() {
+            if (!selectedDay) {
+                alert('Por favor selecciona un día');
+                return;
+            }
+
+            const title = document.getElementById('noteTitle').value.trim();
+            const content = document.getElementById('noteContent').value.trim();
+
+            if (!title || !content) {
+                alert('Por favor completa el título y contenido');
+                return;
+            }
+
+            const dateKey = `${currentDate.getFullYear()}-${currentDate.getMonth()}-${selectedDay}`;
+            
+            if (!dayNotes[dateKey]) {
+                dayNotes[dateKey] = [];
+            }
+
+            const editingNoteId = document.getElementById('noteModal').dataset.editingNoteId;
+            
+            if (editingNoteId) {
+                const note = dayNotes[dateKey].find(n => n.id == editingNoteId);
+                if (note) {
+                    note.title = title;
+                    note.content = content;
+                    note.updatedAt = new Date().toISOString();
+                }
+                delete document.getElementById('noteModal').dataset.editingNoteId;
+            } else {
+                const note = {
+                    id: Date.now(),
+                    title: title,
+                    content: content,
+                    createdAt: new Date().toISOString()
+                };
+                dayNotes[dateKey].push(note);
+            }
+
+            saveData();
+            closeNoteModal();
+            updateDayView(selectedDay);
+        }
+
+        function deleteNote(noteId, day) {
+            if (!confirm('¿Eliminar esta nota?')) return;
+
+            const dateKey = `${currentDate.getFullYear()}-${currentDate.getMonth()}-${day}`;
+            dayNotes[dateKey] = dayNotes[dateKey].filter(n => n.id !== noteId);
+
+            saveData();
+            updateDayView(day);
+        }
+
+        function editNote(noteId, day) {
+            const dateKey = `${currentDate.getFullYear()}-${currentDate.getMonth()}-${day}`;
+            const note = dayNotes[dateKey]?.find(n => n.id === noteId);
+            
+            if (!note) return;
+            
+            selectedDay = day;
+            document.getElementById('noteModalTitle').textContent = 'Editar Nota';
+            document.getElementById('noteTitle').value = note.title;
+            document.getElementById('noteContent').value = note.content;
+            document.getElementById('noteModal').classList.add('active');
+            document.getElementById('noteModal').dataset.editingNoteId = noteId;
         }
 
         function renderCompletedTasks() {
@@ -1475,8 +2067,8 @@
                     completedTasks.push({
                         ...task,
                         dateKey,
-                        year: dateYear,
-                        month: dateMonth,
+                        year,
+                        month,
                         day
                     });
                 });
@@ -1516,38 +2108,61 @@
         function updateDayView(day) {
             const dateKey = `${currentDate.getFullYear()}-${currentDate.getMonth()}-${day}`;
             const tasks = dayData[dateKey] || [];
+            const notes = dayNotes[dateKey] || [];
             const container = document.getElementById('dayViewTaskList');
+            const notesContainer = document.getElementById('dayViewNotesList');
             
             document.getElementById('dayViewTitle').textContent = `Tareas - ${day} de ${getMonthName()}`;
 
             if (tasks.length === 0) {
                 container.innerHTML = '<p style="text-align: center; color: #999; padding: 20px;">No hay tareas para este día</p>';
-                return;
-            }
+            } else {
+                tasks.sort((a, b) => {
+                    if (!a.time && !b.time) return 0;
+                    if (!a.time) return 1;
+                    if (!b.time) return -1;
+                    return a.time.localeCompare(b.time);
+                });
 
-            tasks.sort((a, b) => {
-                if (!a.time && !b.time) return 0;
-                if (!a.time) return 1;
-                if (!b.time) return -1;
-                return a.time.localeCompare(b.time);
-            });
+                container.innerHTML = tasks.map(task => {
+                    const objective = task.linkedObjectiveId ? objectives.find(o => o.id == task.linkedObjectiveId) : null;
 
-            container.innerHTML = tasks.map(task => {
-                const objective = task.linkedObjectiveId ? objectives.find(o => o.id == task.linkedObjectiveId) : null;
-
-                return `
-                    <div class="task-item ${task.completed ? 'completed' : ''}">
-                        <input type="checkbox" ${task.completed ? 'checked' : ''} 
-                               onchange="toggleTaskInView(${task.id}, ${day})">
-                        <div class="task-text">
-                            <strong>${task.text}</strong>
-                            ${task.time ? `<br><small style="color: #999;">⏰ ${task.time}</small>` : ''}
-                            ${objective ? `<br><small style="color: #32b8c6;">🎯 ${objective.title} (${task.weight}%)</small>` : ''}
+                    return `
+                        <div class="task-item ${task.completed ? 'completed' : ''}">
+                            <input type="checkbox" ${task.completed ? 'checked' : ''} 
+                                   onchange="toggleTaskInView(${task.id}, ${day})">
+                            <div class="task-text">
+                                <strong>${task.text}</strong>
+                                ${task.time ? `<br><small style="color: #999;">⏰ ${task.time}</small>` : ''}
+                                ${objective ? `<br><small style="color: #32b8c6;">🎯 ${objective.title} (${task.weight}%)</small>` : ''}
+                            </div>
+                            <button class="delete-btn" onclick="deleteTaskInView(${task.id}, ${day})">🗑️</button>
                         </div>
-                        <button class="delete-btn" onclick="deleteTaskInView(${task.id}, ${day})">🗑️</button>
-                    </div>
+                    `;
+                }).join('');
+            }
+            
+            // Mostrar notas
+            if (notes.length === 0) {
+                notesContainer.innerHTML = '';
+            } else {
+                notesContainer.innerHTML = `
+                    <h3 style="color: #4ade80; font-size: 16px; margin-bottom: 10px;">📝 Notas del día</h3>
+                    ${notes.map(note => `
+                        <div class="note-item" style="background: #1a1a1a; border: 1px solid #404040; border-radius: 8px; padding: 12px; margin-bottom: 8px;">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                                <strong style="color: #4ade80; font-size: 14px;">${note.title}</strong>
+                                <div style="display: flex; gap: 6px;">
+                                    <button class="btn-icon" onclick="editNote(${note.id}, ${day})" style="font-size: 14px; padding: 4px 8px;">✏️</button>
+                                    <button class="delete-btn" onclick="deleteNote(${note.id}, ${day})" style="padding: 4px 8px; font-size: 12px;">🗑️</button>
+                                </div>
+                            </div>
+                            <p style="color: #e0e0e0; font-size: 13px; line-height: 1.4; margin: 0;">${note.content}</p>
+                            <small style="color: #999; font-size: 11px;">Creada: ${new Date(note.createdAt).toLocaleString()}</small>
+                        </div>
+                    `).join('')}
                 `;
-            }).join('');
+            }
         }
 
         function toggleTaskInView(taskId, day) {
@@ -1621,6 +2236,98 @@
             closeRenameModal();
         }
 
+        function exportData() {
+            toggleSettingsMenu();
+            
+            const dataToExport = {
+                calendarName: calendarName,
+                monthlyData: monthlyData,
+                exportDate: new Date().toISOString(),
+                version: '1.0'
+            };
+            
+            const dataStr = JSON.stringify(dataToExport, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `${calendarName.replace(/[^a-z0-9]/gi, '_')}_backup_${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            
+            alert('✅ Datos exportados exitosamente');
+        }
+
+        function openImportModal() {
+            toggleSettingsMenu();
+            document.getElementById('importFileInput').value = '';
+            document.getElementById('importModal').classList.add('active');
+        }
+
+        function closeImportModal() {
+            document.getElementById('importModal').classList.remove('active');
+        }
+
+        function executeImport() {
+            const fileInput = document.getElementById('importFileInput');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                alert('Por favor selecciona un archivo');
+                return;
+            }
+            
+            if (!file.name.endsWith('.json')) {
+                alert('Por favor selecciona un archivo JSON válido');
+                return;
+            }
+            
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+                    
+                    if (!importedData.monthlyData || !importedData.version) {
+                        alert('❌ Formato de archivo inválido');
+                        return;
+                    }
+                    
+                    if (!confirm('⚠️ ¿Estás seguro? Esto sobrescribirá todos los datos actuales del calendario.')) {
+                        return;
+                    }
+                    
+                    monthlyData = importedData.monthlyData;
+                    
+                    if (importedData.calendarName) {
+                        calendarName = importedData.calendarName;
+                        localStorage.setItem('calendarName', calendarName);
+                        document.getElementById('calendarTitle').textContent = `📊 ${calendarName}`;
+                    }
+                    
+                    localStorage.setItem('monthlyData', JSON.stringify(monthlyData));
+                    
+                    loadData();
+                    renderCalendar();
+                    renderObjectives();
+                    updateStats();
+                    drawProgressChart();
+                    renderCompletedTasks();
+                    
+                    closeImportModal();
+                    alert('✅ Datos importados exitosamente');
+                    
+                } catch (error) {
+                    alert('❌ Error al importar el archivo: ' + error.message);
+                }
+            };
+            
+            reader.readAsText(file);
+        }
+
         function openDownloadModal() {
             toggleSettingsMenu();
             
@@ -1666,12 +2373,140 @@
             closeDownloadModal();
         }
 
+        function generateActionPlans(objectives, dayData, dayNotes, year, month) {
+            const plans = [];
+            
+            // Analizar notas para patrones de mentalidad y reflexiones
+            let totalNotes = 0;
+            let positiveNotes = 0;
+            let challengeNotes = 0;
+            
+            Object.keys(dayNotes).forEach(dateKey => {
+                const [dateYear, dateMonth] = dateKey.split('-').map(Number);
+                if (dateYear === year && dateMonth === month) {
+                    dayNotes[dateKey].forEach(note => {
+                        totalNotes++;
+                        const content = note.content.toLowerCase();
+                        
+                        // Detectar palabras positivas
+                        const positiveWords = ['logré', 'exitoso', 'bien', 'genial', 'perfecto', 'excelente', 'completé', 'satisfecho'];
+                        const challengeWords = ['difícil', 'complicado', 'problema', 'obstáculo', 'no pude', 'falló', 'atrasado'];
+                        
+                        if (positiveWords.some(word => content.includes(word))) positiveNotes++;
+                        if (challengeWords.some(word => content.includes(word))) challengeNotes++;
+                    });
+                }
+            });
+            
+            // Analizar cada objetivo
+            objectives.forEach(obj => {
+                const progress = obj.current;
+                const title = obj.title;
+                
+                // Contar tareas
+                let totalTasks = 0;
+                let completedTasks = 0;
+                
+                Object.keys(dayData).forEach(dateKey => {
+                    const [dateYear, dateMonth] = dateKey.split('-').map(Number);
+                    if (dateYear === year && dateMonth === month) {
+                        dayData[dateKey].forEach(task => {
+                            if (task.linkedObjectiveId == obj.id) {
+                                totalTasks++;
+                                if (task.completed) completedTasks++;
+                            }
+                        });
+                    }
+                });
+                
+                // Generar recomendaciones basadas en progreso
+                if (progress === 0) {
+                    plans.push(`🎯 "${title}": Comienza con tareas pequeñas. Divide el objetivo en 3-5 pasos concretos.`);
+                } else if (progress < 25) {
+                    plans.push(`📊 "${title}": Buen inicio (${progress}%). Mantén el ritmo completando ${Math.max(1, Math.ceil((100 - progress) / 10))} tareas más.`);
+                } else if (progress < 50) {
+                    plans.push(`🚀 "${title}": Vas por buen camino (${progress}%). Aumenta la frecuencia de tareas semanales.`);
+                } else if (progress < 75) {
+                    plans.push(`💪 "${title}": ¡Más de la mitad! (${progress}%). Enfócate en tareas de alto impacto para acelerar.`);
+                } else if (progress < 100) {
+                    plans.push(`🔥 "${title}": Casi completo (${progress}%). Solo ${100 - progress}% más. ¡El último esfuerzo!`);
+                } else {
+                    plans.push(`✅ "${title}": ¡Objetivo completado! Considera establecer un nuevo desafío relacionado.`);
+                }
+                
+                // Recomendaciones por tasa de completitud
+                if (totalTasks > 0) {
+                    const completionRate = (completedTasks / totalTasks) * 100;
+                    if (completionRate < 30 && totalTasks >= 5) {
+                        plans.push(`⚠️ "${title}": Solo ${Math.round(completionRate)}% de tareas completadas. Revisa prioridades.`);
+                    }
+                }
+                
+                // Detectar estancamiento
+                if (progress > 0 && progress < 100 && completedTasks === 0) {
+                    plans.push(`⏸️ "${title}": Sin actividad este mes. Reactiva con 1-2 tareas esta semana.`);
+                }
+            });
+            
+            // Recomendaciones generales
+            const avgProgress = objectives.length > 0 
+                ? Math.round(objectives.reduce((sum, obj) => sum + obj.current, 0) / objectives.length)
+                : 0;
+            
+            if (avgProgress < 30) {
+                plans.push(`💡 Plan general: Enfócate en 1-2 objetivos prioritarios antes de distribuir esfuerzo.`);
+            } else if (avgProgress >= 70) {
+                plans.push(`🎉 Plan general: Excelente progreso general. Considera agregar objetivos más ambiciosos.`);
+            }
+            
+            // Análisis de productividad por días de la semana
+            const dayTaskCounts = [0, 0, 0, 0, 0, 0, 0]; // Dom-Sáb
+            Object.keys(dayData).forEach(dateKey => {
+                const [dateYear, dateMonth, day] = dateKey.split('-').map(Number);
+                if (dateYear === year && dateMonth === month) {
+                    const date = new Date(dateYear, dateMonth, day);
+                    const dayOfWeek = date.getDay();
+                    const completedCount = dayData[dateKey].filter(t => t.completed).length;
+                    dayTaskCounts[dayOfWeek] += completedCount;
+                }
+            });
+            
+            const maxDayIndex = dayTaskCounts.indexOf(Math.max(...dayTaskCounts));
+            const dayNames = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+            
+            if (Math.max(...dayTaskCounts) > 0) {
+                plans.push(`📅 Productividad: Tu día más productivo es ${dayNames[maxDayIndex]}. Programa tareas importantes ese día.`);
+            }
+            
+            // Recomendaciones basadas en notas
+            if (totalNotes > 0) {
+                plans.push(`📝 Análisis de reflexiones: ${totalNotes} notas registradas este mes.`);
+                
+                if (positiveNotes > challengeNotes) {
+                    plans.push(`😊 Mentalidad positiva detectada: ${Math.round((positiveNotes/totalNotes)*100)}% de notas reflejan logros.`);
+                } else if (challengeNotes > positiveNotes) {
+                    plans.push(`⚠️ Desafíos identificados: Considera estrategias para superar obstáculos mencionados en notas.`);
+                }
+                
+                if (totalNotes >= 10) {
+                    plans.push(`📚 Hábito de reflexión: Excelente práctica de auto-análisis. Mantén la constancia.`);
+                } else if (totalNotes >= 5) {
+                    plans.push(`📖 Reflexión moderada: Considera tomar más notas para mejor seguimiento personal.`);
+                }
+            } else {
+                plans.push(`💭 Recomendación: Agrega notas diarias para reflexionar sobre tu progreso y desafíos.`);
+            }
+            
+            return plans;
+        }
+
         function downloadPDF(year, month, monthData) {
             const { jsPDF } = window.jspdf;
             const pdf = new jsPDF();
             
             const objectives = monthData.objectives || [];
             const dayData = monthData.dayData || {};
+            const dayNotes = monthData.dayNotes || {};
             
             // Encabezado con fondo
             pdf.setFillColor(50, 184, 198);
@@ -1817,8 +2652,8 @@
                 yPos += 75;
             }
             
-            // Nueva página para tareas completadas
-            if (yPos > 220 || objectives.length > 0) {
+            // Nueva página para tareas completadas si es necesario
+            if (yPos > 220) {
                 pdf.addPage();
                 yPos = 20;
             }
@@ -1922,6 +2757,378 @@
             // Descargar
             pdf.save(`${calendarName.replace(/[^a-z0-9]/gi, '_')}_${year}_${month + 1}.pdf`);
         }
+
+        function createRecurringTasks(taskText, taskTime, linkedObjId, taskWeight, startDate, endDate, recurrenceType, baseId) {
+            let daysToCreate = [];
+            let currentDate = new Date(startDate);
+            let taskCounter = 0;
+
+            while (currentDate <= endDate) {
+                let shouldCreate = false;
+                
+                switch (recurrenceType) {
+                    case 'daily':
+                        shouldCreate = true;
+                        break;
+                    case 'weekly':
+                        shouldCreate = currentDate.getDay() === startDate.getDay();
+                        break;
+                    case 'monthly':
+                        shouldCreate = currentDate.getDate() === startDate.getDate();
+                        break;
+                    case 'workdays':
+                        const day = currentDate.getDay();
+                        shouldCreate = day >= 1 && day <= 5;
+                        break;
+                    case 'weekends':
+                        const weekendDay = currentDate.getDay();
+                        shouldCreate = weekendDay === 0 || weekendDay === 6;
+                        break;
+                    case 'custom':
+                        const selectedDays = [];
+                        const dayCheckboxes = ['daySun', 'dayMon', 'dayTue', 'dayWed', 'dayThu', 'dayFri', 'daySat'];
+                        dayCheckboxes.forEach((dayId, index) => {
+                            if (document.getElementById(dayId).checked) {
+                                selectedDays.push(index);
+                            }
+                        });
+                        shouldCreate = selectedDays.includes(currentDate.getDay());
+                        break;
+                }
+
+                if (shouldCreate) {
+                    const year = currentDate.getFullYear();
+                    const month = currentDate.getMonth();
+                    const day = currentDate.getDate();
+                    const dateKey = `${year}-${month}-${day}`;
+
+                    if (!dayData[dateKey]) {
+                        dayData[dateKey] = [];
+                    }
+
+                    const task = {
+                        id: baseId + taskCounter,
+                        baseId: baseId,
+                        text: taskText,
+                        time: taskTime,
+                        linkedObjectiveId: linkedObjId ? parseInt(linkedObjId) : null,
+                        weight: taskWeight,
+                        completed: false,
+                        isIndependent: true,
+                        recurrence: recurrenceType
+                    };
+
+                    dayData[dateKey].push(task);
+                    taskCounter++;
+                }
+
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
+
+            alert(`Tarea recurrente creada: ${taskCounter} instancias agregadas`);
+        }
+
+        function switchView(viewType) {
+            const monthView = document.getElementById('monthView');
+            const weekView = document.getElementById('weekView');
+            const viewButtons = document.querySelectorAll('.view-btn');
+
+            viewButtons.forEach(btn => btn.classList.remove('active'));
+
+            if (viewType === 'month') {
+                monthView.style.display = 'block';
+                weekView.classList.remove('active');
+                document.querySelector('.view-btn').classList.add('active');
+            } else if (viewType === 'week') {
+                monthView.style.display = 'none';
+                weekView.classList.add('active');
+                document.querySelectorAll('.view-btn')[1].classList.add('active');
+                renderWeekView();
+            }
+        }
+
+        function renderWeekView() {
+            const weekHeader = document.getElementById('weekHeader');
+            const weekGrid = document.getElementById('weekGrid');
+            
+            // Obtener la fecha del lunes de la semana actual + offset
+            const today = new Date(currentDate);
+            const dayOfWeek = today.getDay();
+            const monday = new Date(today);
+            monday.setDate(today.getDate() - dayOfWeek + 1 + (currentWeekOffset * 7));
+
+            // Generar encabezados de días
+            const dayNames = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+            weekHeader.innerHTML = '<div class="week-time-slot"></div>';
+            
+            for (let i = 0; i < 7; i++) {
+                const currentDay = new Date(monday);
+                currentDay.setDate(monday.getDate() + i);
+                weekHeader.innerHTML += `
+                    <div class="week-day-header">
+                        ${dayNames[i]}<br>
+                        <span style="font-size: 18px; font-weight: 700;">${currentDay.getDate()}</span>
+                    </div>
+                `;
+            }        // Generar grid de horarios (0 a 23 horas - 24 horas completas)
+        weekGrid.innerHTML = '';
+        
+        for (let hour = 0; hour <= 23; hour++) {
+                weekGrid.innerHTML += `<div class="week-hour">${hour.toString().padStart(2, '0')}:00</div>`;
+                
+                for (let day = 0; day < 7; day++) {
+                    const currentDay = new Date(monday);
+                    currentDay.setDate(monday.getDate() + day);
+                    
+                    const year = currentDay.getFullYear();
+                    const month = currentDay.getMonth();
+                    const dayDate = currentDay.getDate();
+                    const dateKey = `${year}-${month}-${dayDate}`;
+                    
+                    const dayTasks = dayData[dateKey] || [];
+                    const hourTasks = dayTasks.filter(task => {
+                        if (!task.time) return false;
+                        const taskHour = parseInt(task.time.split(':')[0]);
+                        return taskHour === hour;
+                    });
+
+                    let cellContent = '';
+                    hourTasks.forEach(task => {
+                        const objective = task.linkedObjectiveId ? objectives.find(o => o.id == task.linkedObjectiveId) : null;
+                        const taskColor = objective?.color || '#32b8c6';
+                        
+                        cellContent += `
+                            <div class="week-task ${task.completed ? 'completed' : ''}" 
+                                 style="background: ${taskColor};"
+                                 onclick="toggleTaskInView(${task.id}, ${dayDate})"
+                                 title="${task.text} - ${task.time}${objective ? ' | ' + objective.title : ''}">
+                                ${task.text.length > 15 ? task.text.substring(0, 12) + '...' : task.text}
+                            </div>
+                        `;
+                    });
+
+                    weekGrid.innerHTML += `
+                        <div class="week-day-column" 
+                             onclick="addTaskToHour(${year}, ${month}, ${dayDate}, ${hour})"
+                             title="Click para agregar tarea a las ${hour.toString().padStart(2, '0')}:00">
+                            ${cellContent}
+                        </div>`;
+                }
+            }
+            
+            // Actualizar rango de semana mostrado
+            updateWeekRange(monday);
+        }
+
+        let currentWeekOffset = 0;
+
+        function changeWeek(delta) {
+            currentWeekOffset += delta;
+            renderWeekView();
+        }
+
+        function updateWeekRange(monday) {
+            const sunday = new Date(monday);
+            sunday.setDate(monday.getDate() + 6);
+            
+            const monthNames = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 
+                               'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+            
+            const startStr = `${monday.getDate()} ${monthNames[monday.getMonth()]}`;
+            const endStr = `${sunday.getDate()} ${monthNames[sunday.getMonth()]} ${sunday.getFullYear()}`;
+            
+            document.getElementById('currentWeekRange').textContent = `${startStr} - ${endStr}`;
+        }
+
+        function addTaskToHour(year, month, day, hour) {
+            // Establecer la fecha y hora seleccionada
+            selectedDay = day;
+            
+            const monthStr = String(month + 1).padStart(2, '0');
+            const dayStr = String(day).padStart(2, '0');
+            const dateString = `${year}-${monthStr}-${dayStr}`;
+            const timeString = `${hour.toString().padStart(2, '0')}:00`;
+            
+            // Pre-llenar los campos del modal
+            document.getElementById('taskStartDate').value = dateString;
+            document.getElementById('taskEndDate').value = dateString;
+            document.getElementById('taskTime').value = timeString;
+            
+            // Actualizar el título del modal
+            const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 
+                            'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+            document.getElementById('modalTitle').textContent = `Nueva Tarea - ${day} de ${months[month]} a las ${timeString}`;
+            
+            // Llenar objetivos en el select
+            const select = document.getElementById('linkedObjective');
+            select.innerHTML = '<option value="">Sin vincular</option>';
+            objectives.forEach(obj => {
+                select.innerHTML += `<option value="${obj.id}">${obj.title} (${obj.current}%)</option>`;
+            });
+            
+            // Mostrar modal
+            document.getElementById('dayModal').classList.add('active');
+        }
+
+        // Modificar renderObjectives para incluir colores personalizados
+        function renderObjectives() {
+            const container = document.getElementById('objectivesList');
+
+            if (objectives.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #999; padding: 20px;">No hay objetivos</p>';
+                return;
+            }
+
+            container.innerHTML = objectives.map(obj => {
+                const color = obj.color || '#32b8c6';
+                return `
+                    <div class="objective-item">
+                        <div class="objective-header">
+                            <div>
+                                <div class="objective-title" style="color: ${color};">${obj.title}</div>
+                                <div class="objective-desc">${obj.description}</div>
+                            </div>
+                            <div class="objective-actions">
+                                <button class="btn-icon" onclick="editObjective(${obj.id})" title="Editar">✏️</button>
+                                <button class="btn-icon" onclick="deleteObjective(${obj.id})" title="Eliminar">🗑️</button>
+                            </div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${obj.current}%; background: linear-gradient(90deg, ${color} 0%, ${adjustBrightness(color, 20)} 100%);"></div>
+                        </div>
+                        <div class="progress-text" style="color: ${color};">${obj.current}%</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Modificar drawProgressChart para usar colores personalizados
+        function drawProgressChart() {
+            const canvas = document.getElementById('progressChart');
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+            const padding = 40;
+            const chartWidth = width - padding * 2;
+            const chartHeight = height - padding * 2;
+
+            ctx.clearRect(0, 0, width, height);
+
+            if (objectives.length === 0) {
+                ctx.fillStyle = '#999';
+                ctx.font = 'bold 16px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('No hay objetivos', width / 2, height / 2);
+                document.getElementById('chartLegend').innerHTML = '';
+                return;
+            }
+
+            const defaultColors = ['#32b8c6', '#4ade80', '#fb923c', '#a78bfa', '#f472b6', '#fbbf24', '#f87171', '#60a5fa'];
+            const totalProgress = objectives.reduce((sum, obj) => sum + obj.current, 0);
+            const overallPercentage = Math.round(totalProgress / objectives.length);
+
+            // Dibujar ejes
+            ctx.strokeStyle = '#404040';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(padding, padding);
+            ctx.lineTo(padding, height - padding);
+            ctx.lineTo(width - padding, height - padding);
+            ctx.stroke();
+
+            // Dibujar líneas horizontales
+            for (let i = 0; i <= 5; i++) {
+                const y = padding + (chartHeight / 5) * i;
+                const value = 100 - (i * 20);
+                
+                ctx.strokeStyle = '#333';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(padding, y);
+                ctx.lineTo(width - padding, y);
+                ctx.stroke();
+
+                ctx.fillStyle = '#999';
+                ctx.font = '12px sans-serif';
+                ctx.textAlign = 'right';
+                ctx.fillText(value + '%', padding - 10, y + 4);
+            }
+
+            // Dibujar barras
+            const barWidth = chartWidth / objectives.length * 0.7;
+            const barSpacing = chartWidth / objectives.length;
+
+            objectives.forEach((obj, index) => {
+                const x = padding + barSpacing * index + (barSpacing - barWidth) / 2;
+                const barHeight = (obj.current / 100) * chartHeight;
+                const y = height - padding - barHeight;
+
+                const barColor = obj.color || defaultColors[index % defaultColors.length];
+
+                // Gradiente para cada barra
+                const gradient = ctx.createLinearGradient(x, y, x, height - padding);
+                gradient.addColorStop(0, barColor);
+                gradient.addColorStop(1, adjustBrightness(barColor, -30));
+
+                // Dibujar barra
+                ctx.fillStyle = gradient;
+                ctx.fillRect(x, y, barWidth, barHeight);
+
+                // Borde de barra
+                ctx.strokeStyle = barColor;
+                ctx.lineWidth = 2;
+                ctx.strokeRect(x, y, barWidth, barHeight);
+
+                // Porcentaje encima de la barra
+                ctx.fillStyle = barColor;
+                ctx.font = 'bold 14px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText(obj.current + '%', x + barWidth / 2, y - 10);
+
+                // Nombre del objetivo debajo
+                ctx.fillStyle = '#999';
+                ctx.font = '11px sans-serif';
+                ctx.save();
+                ctx.translate(x + barWidth / 2, height - padding + 15);
+                ctx.rotate(-Math.PI / 4);
+                ctx.textAlign = 'right';
+                const maxLength = 15;
+                const shortTitle = obj.title.length > maxLength ? obj.title.substring(0, maxLength) + '...' : obj.title;
+                ctx.fillText(shortTitle, 0, 0);
+                ctx.restore();
+            });
+
+            // Promedio general
+            ctx.fillStyle = '#32b8c6';
+            ctx.font = 'bold 18px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(`Promedio: ${overallPercentage}%`, width / 2, 20);
+
+            const legendHtml = objectives.map((obj, index) => {
+                const color = obj.color || defaultColors[index % defaultColors.length];
+                return `
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: ${color};"></div>
+                        <span class="legend-text">${obj.title}</span>
+                        <span class="legend-value" style="color: ${color};">${obj.current}%</span>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('chartLegend').innerHTML = legendHtml;
+        }
+
+        // Manejar cambio de tipo de recurrencia
+        document.addEventListener('change', function(e) {
+            if (e.target.id === 'taskRecurrence') {
+                const customDaysGroup = document.getElementById('customDaysGroup');
+                if (e.target.value === 'custom') {
+                    customDaysGroup.style.display = 'block';
+                } else {
+                    customDaysGroup.style.display = 'none';
+                }
+            }
+        });
 
         // Cerrar menú de configuración al hacer click fuera
         document.addEventListener('click', function(event) {
